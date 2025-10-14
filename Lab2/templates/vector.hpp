@@ -16,6 +16,7 @@ public:
     void add(int value);
     void add(unsigned int index, int value);
     void addAll(const Vector* v);
+    void remove(unsigned int index);
     // void addAll(unsigned int index, const Vector* v);
     int get(unsigned int index);
     unsigned int size();
