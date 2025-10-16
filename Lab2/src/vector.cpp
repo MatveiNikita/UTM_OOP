@@ -12,7 +12,8 @@ Vector::Vector(unsigned int capacity)
 {
     if (capacity < 1) throw std::invalid_argument("capacity cannot be 0");
     
-    _data = new int[_capacity];
+    _data = new int[capacity];
+    _capacity = capacity;
     _size = 0;
 };
 
