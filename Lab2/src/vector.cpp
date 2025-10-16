@@ -1,14 +1,14 @@
 #include"../templates/vector.hpp"
 #include<iostream>
 
-Vector::Vector()
+vector::vector()
 {
     _capacity = 16;
     _size = 0;
     _data = new int[_capacity];
 };
 
-Vector::Vector(unsigned int capacity)
+vector::vector(unsigned int capacity)
 {
     if (capacity < 1) throw std::invalid_argument("capacity cannot be 0");
     
@@ -17,7 +17,7 @@ Vector::Vector(unsigned int capacity)
     _size = 0;
 };
 
-Vector::Vector(unsigned int size, const int* value)
+vector::vector(unsigned int size, const int* value)
 {
     if (value == nullptr) throw std::invalid_argument("value cannot be null");
 
@@ -28,12 +28,12 @@ Vector::Vector(unsigned int size, const int* value)
     std::copy(value, value + size, _data);
 }
 
-Vector::~Vector()
+vector::~vector()
 {
     delete[] _data;
 }
 
-void Vector::add(int value)
+void vector::add(int value)
 {
     if (_size++ >= _capacity)
     {
@@ -48,7 +48,7 @@ void Vector::add(int value)
     ++_size;
 }
 
-void Vector::add(unsigned int index, int value)
+void vector::add(unsigned int index, int value)
 {
     if (index > _size) throw std::out_of_range("Index: " + std::to_string(index) + ", size: " + std::to_string(_size));
 
@@ -70,7 +70,7 @@ void Vector::add(unsigned int index, int value)
     ++_size;
 }
 
-void Vector::addAll(const Vector* v)
+void vector::addAll(const vector* v)
 {
     if (v == nullptr) throw std::invalid_argument("value cannot be null");
     
@@ -112,23 +112,47 @@ void Vector::addAll(const Vector* v)
 //     int* _new_insert_data = new int[_capacity];
 // }
 
-int Vector::get(unsigned int index)
+int vector::get(unsigned int index)
 {
     if (index > _size) throw std::out_of_range("Index: " + std::to_string(index) + ", size: " + std::to_string(_size));
 
     return _data[index];
 }
 
-unsigned int Vector::size()
+unsigned int vector::size()
 {
     return _size - 1;
 }
 
-void Vector::clear()
+void vector::clear()
 {
     delete[] _data;
 
     _capacity = 16;
     _data = new int[_capacity];
     _size = 0;
+}
+
+void vector::swap(unsigned int index_x, unsigned int index_y)
+{
+    int tmp =  get(index_x);
+    _data[index_x] = get(index_y);
+    index_y = tmp;
+}
+
+void vector::pop_back()
+{
+    _size--;
+}
+
+int vector::operator[](unsigned long int index) const
+{   
+    //добавить логику обработки ислючений;
+    return _data[index];
+}
+
+int&  vector::operator[](unsigned long int index) 
+{
+    //добавить логику обработки ислючений;
+    return _data[index];
 }

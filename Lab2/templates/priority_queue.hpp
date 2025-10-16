@@ -6,12 +6,16 @@
 class priority_queue
 {
 public:
-    Vector c;
-    unsigned int size;
+    vector _queue;
+    unsigned int _size;
     priority_queue();
     priority_queue(const priority_queue& cpy_p_queue);  //sholow copy & deep copy
-    priority_queue(const priority_queue&& move_p_queue);
+    priority_queue(priority_queue&& move_p_queue);
     ~priority_queue();
+
+    void push(int elm);
+    int pop();
+    void heapify(unsigned int index);
 };
 
 
