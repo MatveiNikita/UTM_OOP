@@ -1,8 +1,20 @@
 #include "../templates/priority_queue.hpp"
 
-priority_queue::priority_queue(){
-    _queue = vector();
-    _size = _queue.size();
+priority_queue::priority_queue(const vector& v)
+{
+    _queue = v;
+    _size = v.size();
+
+    for (size_t i = 0; i < _size; i++)
+    {
+        _queue[i] = v.get(i);
+    }
+}
+
+priority_queue::priority_queue(vector&& v)
+{
+    _queue = v;
+    _size = v.size();
 }
 
 priority_queue::priority_queue(const priority_queue& cpy_p_queue)
@@ -41,7 +53,10 @@ int priority_queue::pop()
     int root = _queue[0];
 
     _size--;
-    _queue.swap(0, _size);
+
+    auto t = _queue[0];
+    _queue[0] = _queue[_queue.size() - 1];
+    _queue[_queue.size() - 1] = t;
 
     _queue.pop_back(); 
 
@@ -62,7 +77,10 @@ void priority_queue::heapify(unsigned int index)
 
     if (largest != index)
     {
-        _queue.swap(index, largest);   
+        auto t = _queue[0];
+        _queue[0] = _queue[_queue.size() - 1];
+        _queue[_queue.size() - 1] = t; 
+        
         heapify(largest);
     }
     

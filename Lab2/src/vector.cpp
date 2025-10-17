@@ -33,6 +33,69 @@ vector::~vector()
     delete[] _data;
 }
 
+vector::vector(const vector& v)
+{
+    _size = v._size;
+    _capacity = v._size;
+    _data = new int[_capacity];
+
+    for (size_t i = 0; i < _size; i++)
+    {
+        _data[i] = v.get(i);
+    }
+}
+
+vector::vector(vector&& v)
+{
+    _data = v._data;
+    _size = v._size;
+    _capacity = v._capacity;
+
+    v._data = nullptr;
+    v._size = 0;
+    v._capacity = 0;
+
+}
+
+vector& vector::operator=(const vector& v)
+{
+    if (this == &v)
+        return *this;
+
+    if (_capacity != v._capacity)
+    {
+        delete[] _data;
+        _capacity = v._capacity;
+        _data = new int[_capacity];
+    }
+
+    _size = v._size;
+
+    for (size_t i = 0; i < _size; i++)
+    {
+        _data[i] = v.get(i);
+    }
+
+    return *this;
+}
+
+vector& vector::operator=(vector&& v)
+{
+
+    if (this == &v)
+        return *this;    
+
+    delete[] _data;
+    
+    _data = v._data;
+    _size = v._size;
+    _capacity = v._capacity;
+
+    v._data = nullptr;
+    v._size = 0;
+    v._capacity = 0;
+}
+
 void vector::add(int value)
 {
     if (_size++ >= _capacity)
@@ -87,39 +150,15 @@ void vector::addAll(const vector* v)
     _size += v->_size;
 }
 
-// void Vector::addAll(unsigned int index, const Vector* v)
-// {
-//     if (index > _size) throw std::out_of_range("Index: " + std::to_string(index) + ", size: " + std::to_string(_size));
 
-//     if (v == nullptr) throw std::invalid_argument("value cannot be null");
-
-
-//     if (_size + v->_size >= _capacity)
-//     {
-//         _capacity =  _capacity * 2 + v->_size;
-//         int* __new_data = new int[_capacity];
-//         std::copy(_data, _data + _size, __new_data);
-//         delete[] _data;
-//         _data = __new_data;
-//     }
-
-//     if (index == _size)
-//     {
-//         std::copy(v->_data, v->_data + index, _data + _size);
-//         return;
-//     }
-    
-//     int* _new_insert_data = new int[_capacity];
-// }
-
-int vector::get(unsigned int index)
+int vector::get(unsigned int index) const
 {
     if (index > _size) throw std::out_of_range("Index: " + std::to_string(index) + ", size: " + std::to_string(_size));
 
     return _data[index];
 }
 
-unsigned int vector::size()
+unsigned int vector::size() const
 {
     return _size - 1;
 }
