@@ -1,41 +1,29 @@
 #include <iostream>
+#include <vector>
+#include <chrono>
 
-// QUICKSORT(A, p, r)
-// 1 if p < r
-// 2 	then q ← PARTITION(A, p, r)
-// 3	QUICKSORT(A, p, q − 1)
-// 4	QUICKSORT(A, q + 1, r)
+using namespace std;
+using namespace chrono;
 
-// PARTITION(A, p, r)
-// 1.   x ← A[r]
-// 2    i←p−1
-// 3    for j ← p to r − 1
-// 4	do if A[j] ⩽ x
-// 5 		then i ← i + 1
-// 6			Обменять A[i] ↔ A[j]
-// 7    Обменять A[i + 1] ↔ A[r]
-// 8  return i + 1
+int partition(vector<int> arr, int start, int pivot);
 
-int partition(int arr[], int start, int end);
-
-
-void quickSort(int arr[], int start, int end)
+void quickSort(vector<int> arr, int start, int pivot)
 {
-    if (start < end)
+    if (start < pivot)
     {
-        int middle = partition(arr, start, end);
+        int middle = partition(arr, start, pivot);
         quickSort(arr, start, middle - 1);
-        quickSort(arr, middle + 1, end);
+        quickSort(arr, middle + 1, pivot);
     }
 }
 
 
-int partition(int arr[], int start, int end)
+int partition(vector<int> arr, int start, int pivot)
 {
-    int x = arr[end];
+    int x = arr[pivot];
     int i = start - 1;
 
-    for (size_t j = start; j <= end - 1; j++)
+    for (size_t j = start; j <= pivot - 1; j++)
     {
         if (arr[j] < x)
         {
@@ -44,22 +32,28 @@ int partition(int arr[], int start, int end)
         }
     }
 
-    std::swap(arr[i + 1], arr[end]);
+    std::swap(arr[i + 1], arr[pivot]);
 
     return i + 1;
 }
 
 
-int main()
-{
-    int arr[] = {3, 1, 5, 7, 10, 9, 11};
+int main() {
+    int sizes[] = {5000, 16000, 24600};
+    int MAX_VAL = 10000;
 
-    quickSort(arr, 0, 7);
+    for (int n : sizes) {
+        vector<int> A(n), B(n);
 
-    for (size_t i = 0; i < 7; i++)
-    {
-        std::cout << arr[i] << " ";
+        for (int i = 0; i < n; i++) A[i] = rand() % (MAX_VAL + 1);
+
+        auto start = high_resolution_clock::now();
+        quickSort(A, 0, n);
+        auto end = high_resolution_clock::now();
+
+        auto duration = duration_cast<microseconds>(end - start).count();
+        cout << "Размер: " << n << ", время: " << duration << "mcs" << endl;
     }
-    
+
     return 0;
 }

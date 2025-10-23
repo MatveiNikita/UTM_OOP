@@ -1,8 +1,11 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
 
+using namespace std;
+using namespace chrono;
 
-void insertionSort(std::vector<int>& arr)
+void insertionSort(vector<int>& arr)
 {
     for (size_t i = 1; i < arr.size(); i++)
     {
@@ -19,14 +22,23 @@ void insertionSort(std::vector<int>& arr)
     
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
-    std::vector<int> A = {5, 2, 4, 6, 1, 3};
+    vector<int> __size = {5000, 16000, 24600};
+    int MAX_VAL = 10000;
 
-    insertionSort(A);
+    for (int size : __size)
+    {
+        std::vector<int> A(size);
+        for (int i = 0; i < size; i++) A[i] = rand() % (MAX_VAL + 1);
 
-    for (int x : A) std::cout << x << " ";
-    std::cout << std::endl;
+        auto start = high_resolution_clock::now();
+        insertionSort(A);
+        auto end = high_resolution_clock::now();
 
+        auto duration = duration_cast<microseconds>(end - start).count();
+        cout << "Размер: " << size << ", время: " << duration << " mcs\n";
+    }
+    
     return 0;
 }
