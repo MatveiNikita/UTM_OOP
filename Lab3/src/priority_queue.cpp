@@ -19,20 +19,44 @@ priority_queue::priority_queue(vector&& v)
 
 priority_queue::priority_queue(const priority_queue& cpy_p_queue)
 {
+    _size = cpy_p_queue._size;
     _queue = vector();
 
-    for (unsigned int i = 0; i < cpy_p_queue._size; i++) //
+    for (unsigned int i = 0; i < cpy_p_queue._size; i++)
     {
-        _queue[i] = cpy_p_queue._queue[i];
+        _queue.add(cpy_p_queue._queue[i]);
     }
-
-    _size = cpy_p_queue._size;
 }
 
 priority_queue::priority_queue(priority_queue&& move_p_queue)
 {
     _queue = move_p_queue._queue;
     _size = move_p_queue._size;
+}
+
+
+priority_queue& priority_queue::operator=(const priority_queue& cpy_p_queue)
+{
+    if (this != &cpy_p_queue)
+    {
+        _queue = cpy_p_queue._queue; 
+        _size = cpy_p_queue._size;
+    }
+    
+    return *this;
+}
+
+priority_queue& priority_queue::operator=(priority_queue&& cpy_p_queue)
+{
+    if (this != &cpy_p_queue)
+    {
+        _queue = std::move(cpy_p_queue._queue); 
+        _size = cpy_p_queue._size;
+
+        cpy_p_queue._size = 0;
+    }
+    
+    return *this;
 }
 
 void priority_queue::push(int elm)

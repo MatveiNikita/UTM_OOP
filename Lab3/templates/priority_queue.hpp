@@ -15,12 +15,15 @@ public:
     priority_queue(vector&& v);
     priority_queue(const priority_queue& cpy_p_queue);
     priority_queue(priority_queue&& move_p_queue);
-    ~priority_queue();
+
+    priority_queue& operator=(const priority_queue& p);
+    priority_queue& operator=(priority_queue&& p);
+
+    ~priority_queue() = default;
 
     void push(int elm);
     int pop();
-    void heapify(unsigned int index);
 };
 
 
-#endif TEMPLATES_PRIORITY_QUEUE_HPP
+#endif

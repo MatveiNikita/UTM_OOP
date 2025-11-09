@@ -33,6 +33,12 @@ void heap_sort(int arr[], unsigned int size)
     
 }
 
+void build_heap(int arr[], unsigned int size)
+{
+    for (int i = size / 2 - 1; i >= 0; i--)
+        heapify(arr, size, i);
+}
+
 int main(int argc, char const *argv[])
 {
     
@@ -42,7 +48,7 @@ int main(int argc, char const *argv[])
 
     for (size_t i = 0; i < 7; i++)
     {
-        std::cout << matrix[i] << std::endl;
+        std::cout << matrix[i] << " ";
     }
     
     return 0;
