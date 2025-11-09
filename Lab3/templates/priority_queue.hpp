@@ -6,23 +6,27 @@
 
 class priority_queue
 {
-    void heapify(unsigned int index);
+    void heapify(unsigned int);
     vector _queue{};
-    unsigned int _size{0};
 public:
-    priority_queue() = default;
-    priority_queue(const vector& v);
-    priority_queue(vector&& v);
-    priority_queue(const priority_queue& cpy_p_queue);
-    priority_queue(priority_queue&& move_p_queue);
+    priority_queue() : priority_queue(vector()) {}
+    priority_queue(const vector&);
+    priority_queue(vector&&) noexcept;
+    priority_queue(const priority_queue&) = default;
+    priority_queue(priority_queue&&) noexcept = default;
 
-    priority_queue& operator=(const priority_queue& p);
-    priority_queue& operator=(priority_queue&& p);
+    priority_queue& operator=(const priority_queue&) = default;
+    priority_queue& operator=(priority_queue&&) noexcept = default;
 
     ~priority_queue() = default;
 
-    void push(int elm);
+    void push(int);
     int pop();
+    int top() const;
+    size_t size() const { return _queue.size(); }
+    bool empty() const { return !size(); }
+    void swap(priority_queue&) noexcept;
+    friend void swap(priority_queue&, priority_queue&) noexcept;
 };
 
 
