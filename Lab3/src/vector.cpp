@@ -27,7 +27,6 @@ vector::vector(unsigned int size, const int* value)
 
     std::copy(value, value + size, _data);
 }
-
 vector::~vector()
 {
     delete[] _data;
