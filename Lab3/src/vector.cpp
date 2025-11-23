@@ -196,3 +196,98 @@ int&  vector::operator[](unsigned long int index)
 {
     return _data[index];
 }
+
+bool operator==(const vector &lhs, const vector &rhs) //а тут friend выдает ошибку
+{
+    // if (lhs || rhs)   ПРОВЕРКА на NULL?? 
+    // {
+    // }
+    
+    if (lhs.size() != rhs.size())
+    {
+        return false;
+    }
+
+    for (size_t i = 0; i < rhs.size(); i++)
+    {
+        if (lhs.get(i) != rhs.get(i))
+        {
+            return false;
+        }
+        
+    }
+    
+    return true;
+}
+
+bool operator!=(const vector &lhs, const vector &rhs) //а тут friend выдает ошибку
+{   
+    
+    if (lhs.size() != rhs.size())
+    {
+        return true;
+    }
+
+    for (size_t i = 0; i < rhs.size(); i++)
+    {
+        if (lhs.get(i) == rhs.get(i))
+        {
+            return false;
+        }
+        
+    }
+    
+    return true;
+}
+
+bool operator<(const vector &lhs, const vector &rhs)
+{
+    unsigned int min_size;
+
+    lhs.size() <= rhs.size() ? min_size = lhs.size() : min_size = rhs.size();
+    
+    for (size_t i = 0; i < min_size; i++)
+    {
+        if (lhs.get(i) > rhs.get(i))
+        {
+            return false;
+        }
+    }
+    
+    return lhs.size() < rhs.size() ? true : false;
+}
+
+bool operator<=(const vector &lhs, const vector &rhs)
+{   
+    if (operator==(lhs, rhs)) return true;
+
+    if (operator<(lhs, rhs))return true;
+    
+    return false;
+}
+
+bool operator>(const vector &lhs, const vector &rhs)
+{
+    unsigned int min_size;
+
+    lhs.size() <= rhs.size() ? min_size = lhs.size() : min_size = rhs.size();
+
+    for (size_t i = 0; i < min_size; i++)
+    {
+        if (lhs.get(i) < rhs.get(i))
+        {
+            return false;
+        }
+    }
+    
+    return lhs.size() > rhs.size() ? true : false;
+}
+
+bool operator>=(const vector &lhs, const vector &rhs)
+{   
+    if (operator==(lhs, rhs)) return true;
+
+    if (operator>(lhs, rhs))return true;
+    
+    return false;
+}

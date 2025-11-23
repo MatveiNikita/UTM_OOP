@@ -29,6 +29,14 @@ public:
     void clear();
     void swap(unsigned int x, unsigned int y);
     void pop_back();
+
+    friend bool operator!=(const vector &lhs,const vector &rhs);  //какого черто это не работает без friend????
+    friend bool operator==(const vector &lhs, const vector &rhs);
+    friend bool operator<=(const vector &lhs, const vector &rhs);
+    friend bool operator<(const vector &lhs, const vector &rhs);
+    friend bool operator>=(const vector &lhs, const vector &rhs);
+    friend bool operator>(const vector &lhs, const vector &rhs);
+
 };
 
 

@@ -7,7 +7,7 @@
 class priority_queue
 {
     void heapify(unsigned int index);
-    vector _queue{};
+    vector _queue;
     unsigned int _size{0};
 public:
     priority_queue() = default;
