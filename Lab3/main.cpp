@@ -1,32 +1,44 @@
-#include<iostream>
+#include <cassert>
+#include <iostream>
+#include <utility>
+
 #include"templates/priority_queue.hpp"
 
-using namespace std;
 
-int main(int argc, char const *argv[])
-{
-    priority_queue* px = new priority_queue();
+using container = vector;
 
-    px->push(10);
-    px->push(67);
-    px->push(100);
+int main() {
+    container a({1, 3, 5, 7, 9});
+    assert(5 == a.size());
+    assert(1 == a[0]);
+    assert(9 == a[4]);
 
-    priority_queue* py = px;
+    container b{a};
+    assert(a == b);
+    assert(3 == b[1]);
+    assert(7 == b[3]);
+    b[4] = 0;
+    assert(0 == b[4]);
+    assert(!b.contains(9));
+    assert(b < a);
+    assert(a > b);
 
-    cout << px->pop() << endl;
-    cout << px->pop() << endl;
-    cout << px->pop() << endl;
+    container c;
+    assert(0 == c.size());
+    c = b;
+    assert(b == c);
+    c[1] = c[2] = 7;
+    assert(7 == c[1]);
+    assert(7 == c[2]);
+    assert(3 == c.count(7));
 
-    cout << py->pop() << endl;
-    cout << py->pop() << endl;
-    cout << py->pop() << endl;
-
-    priority_queue* pz = new priority_queue();
-
-    pz->push(1);
-
-    cout << pz->pop() << endl;
-    cout << pz->pop() << endl;
-
-    return 0;
+    b = container({1, 3, 5, 7, 9});
+    assert(5 == b.size());
+    assert(1 == b[0]);
+    assert(9 == b[4]);
+    c = std::move(b);
+    assert(9 == c[4]);
+    assert(c.contains(7));
+    assert(b.empty());
+    assert(b < c);
 }
