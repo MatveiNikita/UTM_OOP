@@ -6,14 +6,8 @@
 
 class priority_queue
 {
-<<<<<<< HEAD
-    void heapify(unsigned int index);
-    vector _queue;
-    unsigned int _size{0};
-=======
     void heapify(unsigned int);
     vector _queue{};
->>>>>>> refs/remotes/origin/main
 public:
     priority_queue() : priority_queue(vector()) {}
     priority_queue(const vector&);
